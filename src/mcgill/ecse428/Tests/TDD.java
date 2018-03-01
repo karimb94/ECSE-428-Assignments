@@ -1,9 +1,13 @@
 /**
  * @author Karim El-Baba
+ * I.D: 26058233
  */
 package mcgill.ecse428.Tests;
 
 import static org.junit.Assert.*;
+
+import java.io.FileNotFoundException;
+
 import org.junit.Test;
 import mcgill.ecse428.PostalRateCalculator.*;
 
@@ -32,7 +36,7 @@ public class TDD {
 	private final String INVALID_POSTAL_TYPE_2 = "Ivalid postal type, please select between: Regular, Xpress, Prior";
 	
 	@Test
-	public void ValidInputsAndRate() {
+	public void ValidInputsAndRate() throws FileNotFoundException {
 		double rate = tester.getValidRate();
 		assertEquals(RATE_ONE,rate,0.05);
 		
