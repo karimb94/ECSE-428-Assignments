@@ -24,8 +24,6 @@ public class TDD {
 	private final String INVALID_HEIGHT = "Ivalid length, please a number between 0cm to 300cm";
 	private final String INVALID_WIDTH = "Ivalid width, please a number between 0cm to 400cm";
 	private final String INVALID_POSTAL_TYPE = "Ivalid postal type, please select between: Regular, Xpress, Prior";
-
-
 	
 	@Test
 	public void ValidInputsAndRate() {
