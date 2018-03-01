@@ -36,4 +36,13 @@ public class PostalRateCalculator {
 		return Double.parseDouble(rate);
 	}
 
+	public boolean validatePostalCode(boolean type,String postal) {
+		//for type = true, input is FROM Postal code
+		//for type = false, input is
+		
+		System.out.print("Ivalid From Postal Code, please enter re-enter from postal code");
+		return true;
+		
+	}
+
 }
