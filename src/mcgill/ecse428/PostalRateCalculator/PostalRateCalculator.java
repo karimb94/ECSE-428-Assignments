@@ -6,4 +6,8 @@ public class PostalRateCalculator {
 
 	}
 
+	public double getValidRate() {
+		return 0;
+	}
+
 }
