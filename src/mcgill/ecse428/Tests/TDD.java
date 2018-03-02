@@ -25,7 +25,7 @@ public class TDD {
 	private final double RATE_TWO = 20.50;
 	// Error Messages
 	private final String INVALID_FROM_CODE = "Ivalid From Postal Code, please enter re-enter from postal code";
-	private final String INVALID_TO_CODE = "Ivalid To Postal Code, please enter re-enter to postal code:";
+	private final String INVALID_TO_CODE = "Ivalid To Postal Code, please enter re-enter to postal code";
 	private final String INVALID_WEIGHT = "Ivalid weight, please a number between 0g and 50g";
 	private final String INVALID_LENGTH = "Ivalid length, please a number between 0cm to 200cm";
 	private final String INVALID_HEIGHT = "Ivalid length, please a number between 0cm to 300cm";
@@ -59,22 +59,29 @@ public class TDD {
 	@Test
 	public void InvalidFromPostalCode() {
 		String inValidCode = "alskdjl";
-		tester.validatePostalCode(true, "inValidCode");
+		tester.validatePostalCode(true, inValidCode);
 		assertEquals(INVALID_FROM_CODE, outContent.toString());
 	}
 	
 	@Test
 	public void EmptyFromPostalCode(){
 		String inValidCode = "";
-		tester.validatePostalCode(true, "inValidCode");
+		tester.validatePostalCode(true, inValidCode);
 		assertEquals(INVALID_FROM_CODE, outContent.toString());
 	}
 	
 	@Test
 	public void InvalidToPostalCode() {
 		String inValidCode = "alskdjl";
-		tester.validatePostalCode(false, "inValidCode");
-		assertEquals(INVALID_FROM_CODE, outContent.toString());
+		tester.validatePostalCode(false, inValidCode);
+		assertEquals(INVALID_TO_CODE, outContent.toString());
+	}
+	
+	@Test
+	public void EmptyToPostalCode(){
+		String inValidCode = "";
+		tester.validatePostalCode(false, inValidCode);
+		assertEquals(INVALID_TO_CODE, outContent.toString());
 	}
 
 	@After

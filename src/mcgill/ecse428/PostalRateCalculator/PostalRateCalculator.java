@@ -46,8 +46,12 @@ public class PostalRateCalculator {
 		// for type = false, input is
 		Matcher matcher = postalCode.matcher(postal);
 		
-		if(!matcher.matches()){
+		if(!matcher.matches() && type){
 			System.out.print("Ivalid From Postal Code, please enter re-enter from postal code");
+			return false;
+		}
+		else if(!matcher.matches() && !type){
+			System.out.print("Ivalid To Postal Code, please enter re-enter to postal code");
 			return false;
 		}
 
