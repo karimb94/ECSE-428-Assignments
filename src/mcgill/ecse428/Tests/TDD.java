@@ -58,9 +58,10 @@ public class TDD {
 
 	@Test
 	public void InvalidFromPostalCode() {
-		String inValidCode = "";
+		String inValidCode = "alskdjl";
 		tester.validatePostalCode(true, "inValidCode");
 		assertEquals(INVALID_FROM_CODE, outContent.toString());
+
 	}
 
 	@After
