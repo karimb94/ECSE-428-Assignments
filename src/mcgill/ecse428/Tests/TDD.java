@@ -39,7 +39,7 @@ public class TDD {
 	private final String INVALID_WIDTH_2 = "Ivalid width, please a number between 0cm to 400cm";
 	private final String INVALID_POSTAL_TYPE_2 = "Ivalid postal type, please select between: Regular, Xpress, Prior";
 
-	//Used to sample console output and ensure valide error messages
+	// Used to sample console output and ensure valide error messages
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 
@@ -62,26 +62,41 @@ public class TDD {
 		tester.validatePostalCode(true, inValidCode);
 		assertEquals(INVALID_FROM_CODE, outContent.toString());
 	}
-	
+
 	@Test
-	public void EmptyFromPostalCode(){
+	public void EmptyFromPostalCode() {
 		String inValidCode = "";
 		tester.validatePostalCode(true, inValidCode);
 		assertEquals(INVALID_FROM_CODE, outContent.toString());
 	}
-	
+
 	@Test
 	public void InvalidToPostalCode() {
 		String inValidCode = "alskdjl";
 		tester.validatePostalCode(false, inValidCode);
 		assertEquals(INVALID_TO_CODE, outContent.toString());
 	}
-	
+
 	@Test
-	public void EmptyToPostalCode(){
+	public void EmptyToPostalCode() {
 		String inValidCode = "";
 		tester.validatePostalCode(false, inValidCode);
 		assertEquals(INVALID_TO_CODE, outContent.toString());
+	}
+
+	@Test
+	public void InvalidDimensions() {
+
+	}
+	
+	@Test
+	public void negativeDimensions(){
+		
+	}
+	
+	@Test
+	public void InvalidDimensionFormat(){
+		
 	}
 
 	@After

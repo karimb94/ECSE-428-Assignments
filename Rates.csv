@@ -1,2 +1,4 @@
-Weight_Limit,Height_Upper_Limit,Length_Upper_Limit,Width_Upper_Limit,Rate
-"0,200","0,200","0,300","0,100",10.25
+Weight_Limit,Rate_1,Height_Limit,Rate_2,Length_Limit,Rate_3,Width_Limit,Rate_4,From,To,Rate_5,Type,Rate_6
+"0,200",0.3,"0,50",0.3,"0,50",0.3,"0,50",0.3,H,H,0.3,R,0.3
+"200,300",0.5,"50,100",0.5,"50,100",0.5,"50,100",0.5,H,"G,J",0.5,X,0.5
+"300,400",0.7,"100,150",0.7,"100,150",0.7,"100,150",0.7,H,Other,0.7,P,0.7
