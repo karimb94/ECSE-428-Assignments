@@ -15,13 +15,87 @@ public class PostalRateCalculator {
 	private final String fileName = "Rates.csv";
 	private File ratesFile = new File(fileName);
 
-	private String postalCodeRules = "^[a-zA-Z][0-9][a-zA-Z] ?[0-9][a-zA-Z][0-9]$";
-	private Pattern postalCode = Pattern.compile(postalCodeRules);
-	
+	private String fromPostalCodeRules = "^[hH][0-9][a-zA-Z] ?[0-9][a-zA-Z][0-9]$";
+	private String toPostalCodeRules = "^[a-zA-Z][0-9][a-zA-Z] ?[0-9][a-zA-Z][0-9]$";
+
+	private Pattern toPostalCode = Pattern.compile(fromPostalCodeRules);
+	private Pattern fromPostalCode = Pattern.compile(toPostalCodeRules);
+
 	public static void main(String[] args) {
 	}
 
-	public double getValidRate() throws FileNotFoundException {
+	public double getWeightRate() {
+		return 0;
+
+	}
+
+	public double getHeightRate() {
+		return 0;
+	}
+
+	public double getLengthRate() {
+		return 0;
+
+	}
+
+	public double getWidthRate() {
+		return 0;
+
+	}
+
+	public double getTypeRate() {
+		return 0;
+
+	}
+
+	public double getPostalCodeRate() {
+		return 0;
+
+	}
+
+	public boolean weightRange() {
+		return false;
+
+	}
+
+	public boolean heightRange() {
+		return false;
+
+	}
+
+	public boolean widthRange() {
+		return false;
+
+	}
+
+	public boolean lengthRange() {
+		return false;
+
+	}
+
+	public boolean validType() {
+		return false;
+
+	}
+
+	public boolean validatePostalCode(String from, String to) {
+
+		//Validate syntax for postal codes
+		Matcher matcher = fromPostalCode.matcher(from);
+		Matcher matcher2 = toPostalCode.matcher(to);
+
+		if (!matcher.matches()) {
+			System.out.print("Ivalid From Postal Code, please enter re-enter from postal code");
+			return false;
+		} else if (!matcher2.matches()) {
+			System.out.print("Ivalid To Postal Code, please enter re-enter to postal code");
+			return false;
+		}
+
+		return true;
+	}
+
+	public double getValidRateWeight() throws FileNotFoundException {
 		String rate = null;
 		String test;
 		int lineCount = 0;
@@ -41,22 +115,6 @@ public class PostalRateCalculator {
 		return Double.parseDouble(rate);
 	}
 
-	public boolean validatePostalCode(boolean type, String postal) {
-		// for type = true, input is FROM Postal code
-		// for type = false, input is
-		Matcher matcher = postalCode.matcher(postal);
-		
-		if(!matcher.matches() && type){
-			System.out.print("Ivalid From Postal Code, please enter re-enter from postal code");
-			return false;
-		}
-		else if(!matcher.matches() && !type){
-			System.out.print("Ivalid To Postal Code, please enter re-enter to postal code");
-			return false;
-		}
-
-		return true;
-
-	}
+	
 
 }

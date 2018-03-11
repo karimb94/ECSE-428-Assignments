@@ -57,46 +57,87 @@ public class TDD {
 	}
 
 	@Test
-	public void InvalidFromPostalCode() {
-		String inValidCode = "alskdjl";
-		tester.validatePostalCode(true, inValidCode);
-		assertEquals(INVALID_FROM_CODE, outContent.toString());
+	public void getWieghtRate() {
 	}
 
 	@Test
-	public void EmptyFromPostalCode() {
-		String inValidCode = "";
-		tester.validatePostalCode(true, inValidCode);
+	public void getHieghtRate() {
+	}
+
+	@Test
+	public void getLengthRate() {
+	}
+
+	@Test
+	public void getWidthRate() {
+	}
+	
+	@Test
+	public void getTypeRate() {
+	}
+	@Test
+	public void getPostalCodeRate() {
+	}
+	
+	@Test
+	public boolean weightRange() {
+		return false;
+
+	}
+	@Test
+	public boolean heightRange() {
+		return false;
+
+	}
+	@Test
+	public boolean widthRange() {
+		return false;
+
+	}
+	@Test
+	public boolean lengthRange() {
+		return false;
+
+	}
+	@Test
+	public boolean validType() {
+		return false;
+
+	}
+
+	@Test
+	public void InvalidFromPostalCode() {
+		String inValidFromCode = "alskdjl";
+		String validToCode = "h2q4j2";
+		
+		tester.validatePostalCode(inValidFromCode,validToCode);
+		
 		assertEquals(INVALID_FROM_CODE, outContent.toString());
 	}
 
 	@Test
 	public void InvalidToPostalCode() {
-		String inValidCode = "alskdjl";
-		tester.validatePostalCode(false, inValidCode);
-		assertEquals(INVALID_TO_CODE, outContent.toString());
-	}
-
-	@Test
-	public void EmptyToPostalCode() {
-		String inValidCode = "";
-		tester.validatePostalCode(false, inValidCode);
-		assertEquals(INVALID_TO_CODE, outContent.toString());
+		String inValidToCode = "h2q4j2";
+		String validFromCode = "alskdjl";
+		
+		tester.validatePostalCode(validFromCode,inValidToCode);
+		
+		assertEquals(INVALID_FROM_CODE, outContent.toString());
 	}
 
 	@Test
 	public void InvalidDimensions() {
 
 	}
-	
+
 	@Test
-	public void negativeDimensions(){
-		
+	public void negativeDimensions() {
+
 	}
-	
+
 	@Test
-	public void InvalidDimensionFormat(){
-		
+	public void InvalidDimensionFormat() {
+
 	}
 
 	@After
