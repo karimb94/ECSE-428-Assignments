@@ -13,45 +13,65 @@ import java.util.regex.Pattern;
 
 public class PostalRateCalculator {
 
-	private final int WEIGHT_LIMIT_1 = 200;
-	private final int WEIGHT_LIMIT_2 = 300;
-	private final int WEIGHT_LIMIT_3 = 400;
-
-	private final int DIMENSION_LIMIT_1 = 50;
-	private final int DIMENSION_LIMIT_2 = 100;
-	private final int DIMENSION_LIMIT_3 = 150;
-
 	private static File ratesFile = new File("Rates.csv");
 
+	// Postal code validation Patterns. Ensures proper format is followed
 	private String fromPostalCodeRules = "^[hH][0-9][a-zA-Z] ?[0-9][a-zA-Z][0-9]$";
 	private String toPostalCodeRules = "^[a-zA-Z][0-9][a-zA-Z] ?[0-9][a-zA-Z][0-9]$";
-
 	private Pattern toPostalCode = Pattern.compile(fromPostalCodeRules);
 	private Pattern fromPostalCode = Pattern.compile(toPostalCodeRules);
 
 	public static void main(String[] args) throws FileNotFoundException {
 	}
 
+	/**
+	 * This method is used to parse the csv file column by column.
+	 * 
+	 * @param column
+	 *            The column desired from the csv file
+	 * @return ArrayList with the column elements
+	 * @throws FileNotFoundException
+	 */
 	public static ArrayList<String> parseColumn(int column) throws FileNotFoundException {
+
 		Scanner inputStream = new Scanner(ratesFile);
 
 		String[] temp;
 		ArrayList<String> data = new ArrayList<String>();
-		for (temp = (inputStream.nextLine()).split(","); temp != null;) {
 
-			data.add(temp[column]);
+		/*
+		 * Parse the csv file row by row until end and add the proper cell to
+		 * the return ArrayList
+		 */
+		while (true) {
 
 			try {
 				temp = (inputStream.nextLine()).split(",");
-			} catch (Exception e) {
+			} catch (Exception e) { // Break at EOF
 				break;
 
 			}
+			// Add to arrayList
+			data.add(temp[column]);
 
 		}
 		return data;
 	}
 
+	/**
+	 * This method is used to get the rate corresponding to an input value. This
+	 * is done by retrieving the limit column and the rates column desired, then
+	 * finding if the desired value falls within the found limits.
+	 * 
+	 * @param in
+	 *            input value to be compared to limits
+	 * @param limitCol
+	 *            The column containing the desired limits
+	 * @param rateCol
+	 *            The column containing the desired respective rates
+	 * @return -1 if input is out of range. rate if input is within range
+	 * @throws FileNotFoundException
+	 */
 	public static double getRate(int in, int limitCol, int rateCol) throws FileNotFoundException {
 		ArrayList<String> limits = parseColumn(limitCol);
 		ArrayList<String> rates = parseColumn(rateCol);
@@ -80,6 +100,20 @@ public class PostalRateCalculator {
 
 	}
 
+	/**
+	 * This method is used to find the proper postage rate of a parsel as per
+	 * the weight, dimensions, and postal code of the user. The rates are
+	 * calculated based on the csv file.
+	 * 
+	 * @param width
+	 * @param height
+	 * @param length
+	 * @param weight
+	 * @param type
+	 * @param to
+	 * @return
+	 * @throws FileNotFoundException
+	 */
 	public double getFullRate(int width, int height, int length, int weight, String type, String to)
 			throws FileNotFoundException {
 		// Calculate the individual rates
@@ -91,23 +125,36 @@ public class PostalRateCalculator {
 		double r6 = getPostalCodeRate(to);
 		double total;
 
+		//If all rates are good, return sum. Else return -1
 		if (r1 != -1 && r2 != -1 && r3 != -1 && r4 != -1 && r5 != -1 && r6 != -1) {
 			total = r1 + r2 + r3 + r4 + r5 + r6;
+			return total;
 		} else {
 			return -1;
 		}
 
-		// Add all individual rates for final rate
-		return total;
 	}
 
+	/**
+	 * This method is used to validate the input postal codes entered by the
+	 * user.
+	 * 
+	 * @param from
+	 *            The desired from postal code (must be within montreal,
+	 *            starting with an H, and matching postal code pattern)
+	 * @param to
+	 *            The desired destination postal code (must match postal code
+	 *            pattern)
+	 * @return false for incorrect postal codes, true if postal codes are good
+	 */
 	public boolean validatePostalCode(String from, String to) {
 
 		// Validate syntax for postal codes
 		Matcher matcher = fromPostalCode.matcher(from);
 		Matcher matcher2 = toPostalCode.matcher(to);
 
-		if (!matcher.matches()) {
+		//Check for matches with REGEX patterns
+		if (!matcher.matches()) { 
 			System.out.print("Ivalid From Postal Code, please enter re-enter from postal code");
 			return false;
 		} else if (!matcher2.matches()) {
@@ -116,26 +163,6 @@ public class PostalRateCalculator {
 		}
 
 		return true;
-	}
-
-	public double getValidRateWeight() throws FileNotFoundException {
-		String rate = null;
-		String test;
-		int lineCount = 0;
-		Scanner inputStream = new Scanner(ratesFile);
-
-		while (inputStream.hasNext()) {
-			// Find Rate from csv File
-			if (lineCount == 1) {
-				rate = inputStream.nextLine();
-				String[] rate2 = rate.split(",");
-				rate = rate2[rate2.length - 1];
-				break;
-			}
-			inputStream.nextLine();
-			lineCount++;
-		}
-		return Double.parseDouble(rate);
 	}
 
 }
