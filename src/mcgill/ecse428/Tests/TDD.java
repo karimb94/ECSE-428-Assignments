@@ -20,9 +20,6 @@ public class TDD {
 	// Objects
 	private PostalRateCalculator tester = new PostalRateCalculator();
 
-	// Valid Rates
-	private final double RATE_ONE = 10.25;
-	private final double RATE_TWO = 20.50;
 	// Error Messages
 	private final String INVALID_FROM_CODE = "Ivalid From Postal Code, please enter re-enter from postal code";
 	private final String INVALID_TO_CODE = "Ivalid To Postal Code, please enter re-enter to postal code";
@@ -37,7 +34,6 @@ public class TDD {
 	private final String INVALID_LENGTH_2 = "Ivalid length, please a number between 201cm to 300cm";
 	private final String INVALID_HEIGHT_2 = "Ivalid length, please a number between 0cm to 300cm";
 	private final String INVALID_WIDTH_2 = "Ivalid width, please a number between 0cm to 400cm";
-	private final String INVALID_POSTAL_TYPE_2 = "Ivalid postal type, please select between: Regular, Xpress, Prior";
 
 	// Used to sample console output and ensure valide error messages
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -49,95 +45,149 @@ public class TDD {
 		System.setErr(new PrintStream(errContent));
 	}
 
+	// Test 1
 	@Test
-	public void ValidInputsAndRate() throws FileNotFoundException {
-		double rate = tester.getValidRate();
-		assertEquals(RATE_ONE, rate, 0.05);
+	public void wieghtRate1() {
+	}
+
+	// Test 2
+	@Test
+	public void wieghtRate2() {
+	}
+
+	// Test 3
+	@Test
+	public void hieghtRate1() {
+	}
+
+	// Test 4
+	@Test
+	public void hieghtRate2() {
+	}
+
+	// Test 5
+	@Test
+	public void lengthRate1() {
+	}
+
+	// Test 6
+	@Test
+	public void lengthRate2() {
+	}
+
+	// Test 7
+	@Test
+	public void widthRate1() {
+	}
+
+	// Test 8
+	@Test
+	public void widthRate2() {
+	}
+
+	// Test 9
+	@Test
+	public void typeRate1() {
+	}
+
+	// Test 10
+	@Test
+	public void typeRate2() {
+	}
+
+	// Test 11
+	@Test
+	public void toPostalCodeRate1() {
+	}
+
+	// Test 12
+	@Test
+	public void toPostalCodeRate2() {
+	}
+
+	// Test 13
+	@Test
+	public void fromPostalCodeRate1() {
+	}
+
+	// Test 14
+	@Test
+	public void fromPostalCodeRate2() {
+	}
+
+	// Test 15
+	@Test
+	public void invalideWeight() {
+	}
+
+	// Test 16
+	@Test
+	public void weightOutOfRange() {
+	}
+
+	// Test 17
+	@Test
+	public void invalideHeight() {
 
 	}
 
+	// Test 18
 	@Test
-	public void getWieghtRate() {
-	}
-
-	@Test
-	public void getHieghtRate() {
-	}
-
-	@Test
-	public void getLengthRate() {
-	}
-
-	@Test
-	public void getWidthRate() {
-	}
-	
-	@Test
-	public void getTypeRate() {
-	}
-	@Test
-	public void getPostalCodeRate() {
-	}
-	
-	@Test
-	public boolean weightRange() {
-		return false;
-
-	}
-	@Test
-	public boolean heightRange() {
-		return false;
-
-	}
-	@Test
-	public boolean widthRange() {
-		return false;
-
-	}
-	@Test
-	public boolean lengthRange() {
-		return false;
-
-	}
-	@Test
-	public boolean validType() {
-		return false;
+	public void heightOutOfRange() {
 
 	}
 
+	// Test 19
 	@Test
-	public void InvalidFromPostalCode() {
+	public void invalidWidthRange() {
+
+	}
+
+	// Test 20
+	@Test
+	public void widthOutOfRange() {
+
+	}
+
+	// Test 21
+	@Test
+	public void invalidLength() {
+
+	}
+
+	// Test 22
+	@Test
+	public void lengthOutOfRange() {
+
+	}
+
+	// Test 23
+	@Test
+	public void invalidType() {
+
+	}
+
+	// Test 24
+	@Test
+	public void invalidFromPostalCode() {
 		String inValidFromCode = "alskdjl";
 		String validToCode = "h2q4j2";
-		
-		tester.validatePostalCode(inValidFromCode,validToCode);
-		
+
+		tester.validatePostalCode(inValidFromCode, validToCode);
+
 		assertEquals(INVALID_FROM_CODE, outContent.toString());
 	}
 
+	// Test 25
 	@Test
-	public void InvalidToPostalCode() {
+	public void invalidToPostalCode() {
+
 		String inValidToCode = "h2q4j2";
 		String validFromCode = "alskdjl";
-		
-		tester.validatePostalCode(validFromCode,inValidToCode);
-		
+
+		tester.validatePostalCode(validFromCode, inValidToCode);
+
 		assertEquals(INVALID_FROM_CODE, outContent.toString());
-	}
-
-	@Test
-	public void InvalidDimensions() {
-
-	}
-
-	@Test
-	public void negativeDimensions() {
-
-	}
-
-	@Test
-	public void InvalidDimensionFormat() {
-
 	}
 
 	@After

@@ -53,24 +53,12 @@ public class PostalRateCalculator {
 
 	}
 
-	public boolean weightRange() {
-		return false;
-
+	public double getFullRate() {
+		return 0;
 	}
 
-	public boolean heightRange() {
+	public boolean validRange() {
 		return false;
-
-	}
-
-	public boolean widthRange() {
-		return false;
-
-	}
-
-	public boolean lengthRange() {
-		return false;
-
 	}
 
 	public boolean validType() {
@@ -80,7 +68,7 @@ public class PostalRateCalculator {
 
 	public boolean validatePostalCode(String from, String to) {
 
-		//Validate syntax for postal codes
+		// Validate syntax for postal codes
 		Matcher matcher = fromPostalCode.matcher(from);
 		Matcher matcher2 = toPostalCode.matcher(to);
 
@@ -114,7 +102,5 @@ public class PostalRateCalculator {
 		}
 		return Double.parseDouble(rate);
 	}
-
-	
 
 }
