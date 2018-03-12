@@ -22,7 +22,6 @@ public class PostalRateCalculator {
 	private Pattern fromPostalCode = Pattern.compile(toPostalCodeRules);
 
 	public static void main(String[] args) throws FileNotFoundException {
-		System.out.print(getPostalCodeRate("A"));
 	}
 
 	/**
@@ -91,6 +90,17 @@ public class PostalRateCalculator {
 		return Double.parseDouble(rates.get(i));
 	}
 
+	/**
+	 * This method is meant to find the rate associated with a parcel delivery
+	 * type. This method assumes that the type has been validated to be of
+	 * acceptable format.
+	 * 
+	 * @param type
+	 *            String representing the desired type of delivery
+	 * @return Parcel rate based on delivery type
+	 * @throws FileNotFoundException
+	 */
+
 	public static double getTypeRate(String type) throws FileNotFoundException {
 
 		ArrayList<String> limits = parseColumn(11);
@@ -103,13 +113,20 @@ public class PostalRateCalculator {
 			}
 		}
 
-		if (i >= limits.size()) {
-			return -1;
-		}
 		return Double.parseDouble(rates.get(i));
 
 	}
 
+	/**
+	 * This method returns the rate associated with a to postal code. This
+	 * method assumes that the postal code has been validated for postal code
+	 * patterns.
+	 * 
+	 * @param to
+	 *            To postal Code
+	 * @return rate if within montreal, Quebec, or Canada
+	 * @throws FileNotFoundException
+	 */
 	public static double getPostalCodeRate(String to) throws FileNotFoundException {
 		ArrayList<String> limits = parseColumn(9);
 		ArrayList<String> rates = parseColumn(10);
