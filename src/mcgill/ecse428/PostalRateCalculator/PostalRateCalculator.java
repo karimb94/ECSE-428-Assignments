@@ -7,6 +7,7 @@ package mcgill.ecse428.PostalRateCalculator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,6 +17,52 @@ public class PostalRateCalculator {
 	private static File ratesFile = new File("Rates.csv");
 
 	public static void main(String[] args) throws FileNotFoundException {
+		// Variables used to store user input
+		double weight;
+		double height;
+		double width;
+		double length;
+		double rate = 0;
+		String fromPostalCode;
+		String toPostalCode;
+		String type;
+
+		Scanner scan = new Scanner(System.in);
+
+		// Validate user input
+		do {
+			weight = validateDimensionFormat("Please Enter a valid weight value");
+		} while (weight == -1 && getRate(weight, 0, 1, "Weight") == -1);
+
+		do {
+			height = validateDimensionFormat("Please Enter a valid height value");
+		} while (height == -1 && getRate(height, 0, 1, "Height") == -1);
+
+		do {
+			width = validateDimensionFormat("Please Enter a valid width value");
+		} while (width == -1 && getRate(width, 0, 1, "Width") == -1);
+		do {
+			length = validateDimensionFormat("Please Enter a valid length value");
+		} while (length == -1 && getRate(length, 0, 1, "Length") == -1);
+
+		do {
+			System.out.println("Please enter a valid from Postal code");
+			fromPostalCode = scan.nextLine();
+
+			System.out.println("Please enter a valid to Postal code");
+			toPostalCode = scan.nextLine();
+
+		} while (!validatePostalCode(fromPostalCode, toPostalCode));
+
+		do {
+			System.out.println("Please select a postage type: REGULAR Or Xpress or Priority");
+			type = scan.nextLine();
+		} while (!validatePostalType(type));
+
+		rate = getFullRate(width, height, length, weight, type, toPostalCode);
+
+		System.out.println("The postage rate will be: " + rate);
+
 	}
 
 	/**
@@ -63,10 +110,12 @@ public class PostalRateCalculator {
 	 *            The column containing the desired limits
 	 * @param rateCol
 	 *            The column containing the desired respective rates
+	 * @param check
+	 *            Name of the value being checked
 	 * @return -1 if input is out of range. rate if input is within range
 	 * @throws FileNotFoundException
 	 */
-	public static double getRate(double in, int limitCol, int rateCol) throws FileNotFoundException {
+	public static double getRate(double in, int limitCol, int rateCol, String check) throws FileNotFoundException {
 		// Parse columns in csv file to find limits and corresponding rates
 		ArrayList<String> limits = parseColumn(limitCol);
 		ArrayList<String> rates = parseColumn(rateCol);
@@ -80,6 +129,7 @@ public class PostalRateCalculator {
 		}
 
 		if (i >= limits.size()) {
+			System.out.println(check + " out of range");
 			return -1;
 		}
 
@@ -164,13 +214,13 @@ public class PostalRateCalculator {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	public double getFullRate(double width, double height, double length, double weight, String type, String to)
+	public static double getFullRate(double width, double height, double length, double weight, String type, String to)
 			throws FileNotFoundException {
 		// Calculate the individual rates
-		double r1 = getRate(weight, 0, 1);
-		double r2 = getRate(height, 2, 3);
-		double r3 = getRate(length, 4, 5);
-		double r4 = getRate(width, 6, 7);
+		double r1 = getRate(weight, 0, 1, "Weight");
+		double r2 = getRate(height, 2, 3, "Height");
+		double r3 = getRate(length, 4, 5, "Length");
+		double r4 = getRate(width, 6, 7, "Width");
 		double r5 = getTypeRate(type);
 		double r6 = getPostalCodeRate(to);
 		double total;
@@ -180,6 +230,29 @@ public class PostalRateCalculator {
 			total = r1 + r2 + r3 + r4 + r5 + r6;
 			return total;
 		} else {
+			return -1;
+		}
+
+	}
+
+	/**
+	 * This method is used to validate that the inputed value by the user is
+	 * infact a number, and not any other symbol.
+	 * 
+	 * @param inputMessage
+	 *            message entered to user
+	 * @return the dimension if a valid number, -1 otherwise
+	 */
+	public static double validateDimensionFormat(String inputMessage) {
+		Scanner userIn = new Scanner(System.in);
+		double dimensions;
+		try {
+			System.out.println(inputMessage);
+			// Try to take in a double
+			dimensions = userIn.nextDouble();
+			return dimensions;
+		} catch (InputMismatchException e) {
+			System.out.println("Please enter a valid number");
 			return -1;
 		}
 
@@ -201,22 +274,13 @@ public class PostalRateCalculator {
 		// Regular expression used to validate A1A 1A1 patter for postal code
 		// From postal code must start with H
 		// To postal code must only match top pattern
-		String fromPostalCodeRules = "^[hH][0-9][a-zA-Z] ?[0-9][a-zA-Z][0-9]$";
-		String toPostalCodeRules = "^[a-zA-Z][0-9][a-zA-Z] ?[0-9][a-zA-Z][0-9]$";
-
-		Pattern toPostalCode = Pattern.compile(fromPostalCodeRules);
-		Pattern fromPostalCode = Pattern.compile(toPostalCodeRules);
-
-		// Validate syntax for postal codes
-		Matcher matcher = fromPostalCode.matcher(from);
-		Matcher matcher2 = toPostalCode.matcher(to);
 
 		// Check for matches with REGEX patterns
-		if (!matcher.matches()) {
-			System.out.println("Ivalid From Postal Code, please enter re-enter from postal code");
+		if (!from.matches("^[hH][0-9][a-zA-Z]\\s*[0-9][a-zA-Z][0-9]$")) {
+			System.out.println("Ivalid FROM Postal Code, please re-enter ORIGIN postal code");
 			return false;
-		} else if (!matcher2.matches()) {
-			System.out.print("Ivalid To Postal Code, please enter re-enter to postal code");
+		} else if (!to.matches("^[a-zA-Z][0-9][a-zA-Z]\\s*[0-9][a-zA-Z][0-9]$")) {
+			System.out.println("Ivalid TO Postal Code, please re-enter DESTINATION postal code");
 			return false;
 		}
 
@@ -235,12 +299,12 @@ public class PostalRateCalculator {
 	public static boolean validatePostalType(String type) {
 		type = type.toUpperCase();
 		// Regex used to check each of the three types desired
-		if (type.matches("REGULAR|XPRESS|PRIORITY")) {
+		if (!type.matches("REGULAR|XPRESS|PRIORITY")) {
 			System.out.println("Ivalid To Postal type!");
-			return true;
+			return false;
 		}
 
-		return false;
+		return true;
 
 	}
 
