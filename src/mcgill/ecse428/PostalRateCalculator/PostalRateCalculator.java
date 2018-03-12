@@ -101,15 +101,6 @@ public class PostalRateCalculator {
 		return total;
 	}
 
-	public boolean validRange() {
-		return false;
-	}
-
-	public boolean validType() {
-		return false;
-
-	}
-
 	public boolean validatePostalCode(String from, String to) {
 
 		// Validate syntax for postal codes
