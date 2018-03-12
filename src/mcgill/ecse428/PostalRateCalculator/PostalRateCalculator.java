@@ -15,12 +15,6 @@ public class PostalRateCalculator {
 
 	private static File ratesFile = new File("Rates.csv");
 
-	// Postal code validation Patterns. Ensures proper format is followed
-	private String fromPostalCodeRules = "^[hH][0-9][a-zA-Z] ?[0-9][a-zA-Z][0-9]$";
-	private String toPostalCodeRules = "^[a-zA-Z][0-9][a-zA-Z] ?[0-9][a-zA-Z][0-9]$";
-	private Pattern toPostalCode = Pattern.compile(fromPostalCodeRules);
-	private Pattern fromPostalCode = Pattern.compile(toPostalCodeRules);
-
 	public static void main(String[] args) throws FileNotFoundException {
 	}
 
@@ -72,12 +66,14 @@ public class PostalRateCalculator {
 	 * @return -1 if input is out of range. rate if input is within range
 	 * @throws FileNotFoundException
 	 */
-	public static double getRate(int in, int limitCol, int rateCol) throws FileNotFoundException {
+	public static double getRate(double in, int limitCol, int rateCol) throws FileNotFoundException {
+		// Parse columns in csv file to find limits and corresponding rates
 		ArrayList<String> limits = parseColumn(limitCol);
 		ArrayList<String> rates = parseColumn(rateCol);
 		int i;
+		// Check if given double is within the limits parsed form the csv file
 		for (i = 1; i < limits.size(); i++) {
-			if (in <= Integer.parseInt(limits.get(i))) {
+			if (in <= Double.parseDouble(limits.get(i))) {
 				break;
 			}
 
@@ -102,11 +98,11 @@ public class PostalRateCalculator {
 	 */
 
 	public static double getTypeRate(String type) throws FileNotFoundException {
-
+		// Parse columns in csv file to find limits and corresponding rates
 		ArrayList<String> limits = parseColumn(11);
 		ArrayList<String> rates = parseColumn(12);
 		int i = 0;
-
+		// Compare type to list of acceptable types to find respective rate
 		for (i = 1; i < limits.size(); i++) {
 			if (type.charAt(0) == limits.get(i).charAt(0)) {
 				break;
@@ -128,18 +124,20 @@ public class PostalRateCalculator {
 	 * @throws FileNotFoundException
 	 */
 	public static double getPostalCodeRate(String to) throws FileNotFoundException {
+		// Parse columns in csv file to find limits and corresponding rates
 		ArrayList<String> limits = parseColumn(9);
 		ArrayList<String> rates = parseColumn(10);
 		to = to.toUpperCase();
 		int i = 0;
 
-		for (i = 1; i < limits.size(); i++) {
+		for (i = 1; i < limits.size(); i++) { // Check if postal code is in
+												// Montreal, or Quebec
 			boolean inQuebec = limits.get(i).contains("|");
 
-			if (inQuebec && (to.charAt(0) == limits.get(i).charAt(0) || to.charAt(0) == limits.get(i).charAt(2))) {
+			if (inQuebec && (to.charAt(0) == limits.get(i).charAt(0) || to.charAt(0) == limits.get(i).charAt(2))) { // Quebec
 				break;
 
-			} else if (to.charAt(0) == limits.get(i).charAt(0)) {
+			} else if (to.charAt(0) == limits.get(i).charAt(0)) { // Montreal
 				break;
 			}
 		}
@@ -166,7 +164,7 @@ public class PostalRateCalculator {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	public double getFullRate(int width, int height, int length, int weight, String type, String to)
+	public double getFullRate(double width, double height, double length, double weight, String type, String to)
 			throws FileNotFoundException {
 		// Calculate the individual rates
 		double r1 = getRate(weight, 0, 1);
@@ -199,7 +197,15 @@ public class PostalRateCalculator {
 	 *            pattern)
 	 * @return false for incorrect postal codes, true if postal codes are good
 	 */
-	public boolean validatePostalCode(String from, String to) {
+	public static boolean validatePostalCode(String from, String to) {
+		// Regular expression used to validate A1A 1A1 patter for postal code
+		// From postal code must start with H
+		// To postal code must only match top pattern
+		String fromPostalCodeRules = "^[hH][0-9][a-zA-Z] ?[0-9][a-zA-Z][0-9]$";
+		String toPostalCodeRules = "^[a-zA-Z][0-9][a-zA-Z] ?[0-9][a-zA-Z][0-9]$";
+
+		Pattern toPostalCode = Pattern.compile(fromPostalCodeRules);
+		Pattern fromPostalCode = Pattern.compile(toPostalCodeRules);
 
 		// Validate syntax for postal codes
 		Matcher matcher = fromPostalCode.matcher(from);
@@ -207,7 +213,7 @@ public class PostalRateCalculator {
 
 		// Check for matches with REGEX patterns
 		if (!matcher.matches()) {
-			System.out.print("Ivalid From Postal Code, please enter re-enter from postal code");
+			System.out.println("Ivalid From Postal Code, please enter re-enter from postal code");
 			return false;
 		} else if (!matcher2.matches()) {
 			System.out.print("Ivalid To Postal Code, please enter re-enter to postal code");
@@ -215,6 +221,27 @@ public class PostalRateCalculator {
 		}
 
 		return true;
+	}
+
+	/**
+	 * This method is used to ensure that the user selects the appropriate type
+	 * of postage. The validation is done using a regular expression
+	 * 
+	 * @param type
+	 *            The type of postage desired by the user
+	 * @return Returns true if one of the three postage types is entered. False
+	 *         otherwise
+	 */
+	public static boolean validatePostalType(String type) {
+		type = type.toUpperCase();
+		// Regex used to check each of the three types desired
+		if (type.matches("REGULAR|XPRESS|PRIORITY")) {
+			System.out.println("Ivalid To Postal type!");
+			return true;
+		}
+
+		return false;
+
 	}
 
 }
