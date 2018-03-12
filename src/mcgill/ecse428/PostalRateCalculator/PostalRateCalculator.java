@@ -6,6 +6,7 @@ package mcgill.ecse428.PostalRateCalculator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,32 +30,44 @@ public class PostalRateCalculator {
 	private Pattern fromPostalCode = Pattern.compile(toPostalCodeRules);
 
 	public static void main(String[] args) throws FileNotFoundException {
-		getWeightRate(5);
 	}
 
-	public static double getWeightRate(int weight) throws FileNotFoundException {
-		String[] limits;
+	public static ArrayList<String> parseColumn(int column) throws FileNotFoundException {
 		Scanner inputStream = new Scanner(ratesFile);
 
-		limits = inputStream.nextLine().split(",");
+		String[] temp;
+		ArrayList<String> data = new ArrayList<String>();
+		for (temp = (inputStream.nextLine()).split(","); temp != null;) {
 
-		System.out.println(limits[2]);
-		return weight;
+			data.add(temp[column]);
 
+			try {
+				temp = (inputStream.nextLine()).split(",");
+			} catch (Exception e) {
+				break;
+
+			}
+
+		}
+		return data;
 	}
 
-	public double getHeightRate(int height) {
-		return 0;
-	}
+	public static double getRate(int in, int limitCol, int rateCol) throws FileNotFoundException {
+		ArrayList<String> limits = parseColumn(limitCol);
+		ArrayList<String> rates = parseColumn(rateCol);
+		int i;
+		for (i = 1; i < limits.size(); i++) {
+			if (in <= Integer.parseInt(limits.get(i))) {
+				break;
+			}
 
-	public double getLengthRate(int length) {
-		return 0;
+		}
 
-	}
+		if (i >= limits.size()) {
+			return -1;
+		}
 
-	public double getWidthRate(int width) {
-		return 0;
-
+		return Double.parseDouble(rates.get(i));
 	}
 
 	public double getTypeRate(String type) {
@@ -70,16 +83,21 @@ public class PostalRateCalculator {
 	public double getFullRate(int width, int height, int length, int weight, String type, String to)
 			throws FileNotFoundException {
 		// Calculate the individual rates
-		double r1 = getWeightRate(weight);
-		double r2 = getHeightRate(height);
-		double r3 = getLengthRate(length);
-		double r4 = getWidthRate(width);
+		double r1 = getRate(weight, 0, 1);
+		double r2 = getRate(height, 2, 3);
+		double r3 = getRate(length, 4, 5);
+		double r4 = getRate(width, 6, 7);
 		double r5 = getTypeRate(type);
 		double r6 = getPostalCodeRate(to);
+		double total;
+
+		if (r1 != -1 && r2 != -1 && r3 != -1 && r4 != -1 && r5 != -1 && r6 != -1) {
+			total = r1 + r2 + r3 + r4 + r5 + r6;
+		} else {
+			return -1;
+		}
 
 		// Add all individual rates for final rate
-		double total = r1 + r2 + r3 + r4 + r5 + r6;
-
 		return total;
 	}
 
