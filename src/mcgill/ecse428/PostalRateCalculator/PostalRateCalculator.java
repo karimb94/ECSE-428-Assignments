@@ -55,7 +55,7 @@ public class PostalRateCalculator {
 		} while (!validatePostalCode(fromPostalCode, toPostalCode));
 
 		do {
-			System.out.println("Please select a postage type: REGULAR Or Xpress or Priority");
+			System.out.println("Please select a postage type: Regular Or Xpress or Priority");
 			type = scan.nextLine();
 		} while (!validatePostalType(type));
 
@@ -151,9 +151,12 @@ public class PostalRateCalculator {
 		// Parse columns in csv file to find limits and corresponding rates
 		ArrayList<String> limits = parseColumn(11);
 		ArrayList<String> rates = parseColumn(12);
-		int i = 0;
+
+		type = type.toUpperCase();
+		int i = 1;
 		// Compare type to list of acceptable types to find respective rate
 		for (i = 1; i < limits.size(); i++) {
+			System.out.println(limits.get(i).charAt(0));
 			if (type.charAt(0) == limits.get(i).charAt(0)) {
 				break;
 			}
