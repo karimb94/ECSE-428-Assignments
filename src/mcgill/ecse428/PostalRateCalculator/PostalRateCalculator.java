@@ -22,6 +22,7 @@ public class PostalRateCalculator {
 	private Pattern fromPostalCode = Pattern.compile(toPostalCodeRules);
 
 	public static void main(String[] args) throws FileNotFoundException {
+		System.out.print(getPostalCodeRate("A"));
 	}
 
 	/**
@@ -95,35 +96,40 @@ public class PostalRateCalculator {
 		ArrayList<String> limits = parseColumn(11);
 		ArrayList<String> rates = parseColumn(12);
 		int i = 0;
-		
-		for( i =1; i<limits.size();i++){
-			System.out.println(limits.get(i).charAt(0));
-			if(type.charAt(0) == limits.get(i).charAt(0)){
+
+		for (i = 1; i < limits.size(); i++) {
+			if (type.charAt(0) == limits.get(i).charAt(0)) {
 				break;
 			}
 		}
 
-		if(i >= limits.size() ){
+		if (i >= limits.size()) {
 			return -1;
 		}
 		return Double.parseDouble(rates.get(i));
 
 	}
 
-	public double getPostalCodeRate(String to) throws FileNotFoundException {
+	public static double getPostalCodeRate(String to) throws FileNotFoundException {
 		ArrayList<String> limits = parseColumn(9);
 		ArrayList<String> rates = parseColumn(10);
+		to = to.toUpperCase();
 		int i = 0;
-		
-		for( i =1; i<limits.size();i++){
-			System.out.println(limits.get(i));
-			if(to == limits.get(i)){
+
+		for (i = 1; i < limits.size(); i++) {
+			boolean inQuebec = limits.get(i).contains("|");
+
+			if (inQuebec && (to.charAt(0) == limits.get(i).charAt(0) || to.charAt(0) == limits.get(i).charAt(2))) {
+				break;
+
+			} else if (to.charAt(0) == limits.get(i).charAt(0)) {
 				break;
 			}
 		}
 
-		if(i >= limits.size() ){
-			return -1;
+		if (i >= limits.size()) { // Reached last element in column
+									// (representing outside of quebec)
+			i--;
 		}
 		return Double.parseDouble(rates.get(i));
 
