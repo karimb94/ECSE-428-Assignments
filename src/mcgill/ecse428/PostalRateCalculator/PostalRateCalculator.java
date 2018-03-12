@@ -90,13 +90,42 @@ public class PostalRateCalculator {
 		return Double.parseDouble(rates.get(i));
 	}
 
-	public double getTypeRate(String type) {
-		return 0;
+	public static double getTypeRate(String type) throws FileNotFoundException {
+
+		ArrayList<String> limits = parseColumn(11);
+		ArrayList<String> rates = parseColumn(12);
+		int i = 0;
+		
+		for( i =1; i<limits.size();i++){
+			System.out.println(limits.get(i).charAt(0));
+			if(type.charAt(0) == limits.get(i).charAt(0)){
+				break;
+			}
+		}
+
+		if(i >= limits.size() ){
+			return -1;
+		}
+		return Double.parseDouble(rates.get(i));
 
 	}
 
-	public double getPostalCodeRate(String to) {
-		return 0;
+	public double getPostalCodeRate(String to) throws FileNotFoundException {
+		ArrayList<String> limits = parseColumn(9);
+		ArrayList<String> rates = parseColumn(10);
+		int i = 0;
+		
+		for( i =1; i<limits.size();i++){
+			System.out.println(limits.get(i));
+			if(to == limits.get(i)){
+				break;
+			}
+		}
+
+		if(i >= limits.size() ){
+			return -1;
+		}
+		return Double.parseDouble(rates.get(i));
 
 	}
 
@@ -125,7 +154,7 @@ public class PostalRateCalculator {
 		double r6 = getPostalCodeRate(to);
 		double total;
 
-		//If all rates are good, return sum. Else return -1
+		// If all rates are good, return sum. Else return -1
 		if (r1 != -1 && r2 != -1 && r3 != -1 && r4 != -1 && r5 != -1 && r6 != -1) {
 			total = r1 + r2 + r3 + r4 + r5 + r6;
 			return total;
@@ -153,8 +182,8 @@ public class PostalRateCalculator {
 		Matcher matcher = fromPostalCode.matcher(from);
 		Matcher matcher2 = toPostalCode.matcher(to);
 
-		//Check for matches with REGEX patterns
-		if (!matcher.matches()) { 
+		// Check for matches with REGEX patterns
+		if (!matcher.matches()) {
 			System.out.print("Ivalid From Postal Code, please enter re-enter from postal code");
 			return false;
 		} else if (!matcher2.matches()) {
