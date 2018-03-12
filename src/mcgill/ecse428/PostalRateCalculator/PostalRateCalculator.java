@@ -12,8 +12,15 @@ import java.util.regex.Pattern;
 
 public class PostalRateCalculator {
 
-	private final String fileName = "Rates.csv";
-	private File ratesFile = new File(fileName);
+	private final int WEIGHT_LIMIT_1 = 200;
+	private final int WEIGHT_LIMIT_2 = 300;
+	private final int WEIGHT_LIMIT_3 = 400;
+
+	private final int DIMENSION_LIMIT_1 = 50;
+	private final int DIMENSION_LIMIT_2 = 100;
+	private final int DIMENSION_LIMIT_3 = 150;
+
+	private static File ratesFile = new File("Rates.csv");
 
 	private String fromPostalCodeRules = "^[hH][0-9][a-zA-Z] ?[0-9][a-zA-Z][0-9]$";
 	private String toPostalCodeRules = "^[a-zA-Z][0-9][a-zA-Z] ?[0-9][a-zA-Z][0-9]$";
@@ -21,40 +28,59 @@ public class PostalRateCalculator {
 	private Pattern toPostalCode = Pattern.compile(fromPostalCodeRules);
 	private Pattern fromPostalCode = Pattern.compile(toPostalCodeRules);
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
+		getWeightRate(5);
 	}
 
-	public double getWeightRate() {
+	public static double getWeightRate(int weight) throws FileNotFoundException {
+		String[] limits;
+		Scanner inputStream = new Scanner(ratesFile);
+
+		limits = inputStream.nextLine().split(",");
+
+		System.out.println(limits[2]);
+		return weight;
+
+	}
+
+	public double getHeightRate(int height) {
+		return 0;
+	}
+
+	public double getLengthRate(int length) {
 		return 0;
 
 	}
 
-	public double getHeightRate() {
-		return 0;
-	}
-
-	public double getLengthRate() {
+	public double getWidthRate(int width) {
 		return 0;
 
 	}
 
-	public double getWidthRate() {
+	public double getTypeRate(String type) {
 		return 0;
 
 	}
 
-	public double getTypeRate() {
+	public double getPostalCodeRate(String to) {
 		return 0;
 
 	}
 
-	public double getPostalCodeRate() {
-		return 0;
+	public double getFullRate(int width, int height, int length, int weight, String type, String to)
+			throws FileNotFoundException {
+		// Calculate the individual rates
+		double r1 = getWeightRate(weight);
+		double r2 = getHeightRate(height);
+		double r3 = getLengthRate(length);
+		double r4 = getWidthRate(width);
+		double r5 = getTypeRate(type);
+		double r6 = getPostalCodeRate(to);
 
-	}
+		// Add all individual rates for final rate
+		double total = r1 + r2 + r3 + r4 + r5 + r6;
 
-	public double getFullRate() {
-		return 0;
+		return total;
 	}
 
 	public boolean validRange() {
