@@ -219,35 +219,55 @@ public class TDD {
 
 	// Test 18
 	@Test
-	public void inValidDimensions() {
+	public void inValidDimensionFormat() {
+		String invalid = "S";
+		double EXPECTED_VALUE = -1;
+		double returned = PostalRateCalculator.validateDimensionFormat(invalid);
+		assertEquals(EXPECTED_VALUE, returned, 0);
 	}
 
 	// Test 19
 	@Test
-	public void weightOutOfRange() {
+	public void weightOutOfRange() throws FileNotFoundException {
+		double EXPECTED_VALUE = -1;
+		double found_Rate = PostalRateCalculator.getRate(1, 0, 1);
+		assertEquals(EXPECTED_VALUE, found_Rate, 0);
 	}
 
 	// Test 20
 	@Test
-	public void heightOutOfRange() {
+	public void heightOutOfRange() throws FileNotFoundException {
+		double EXPECTED_VALUE = -1;
+		double found_Rate = PostalRateCalculator.getRate(300, 0, 1);
+		assertEquals(EXPECTED_VALUE, found_Rate, 0);
 
 	}
 
 	// Test 21
 	@Test
-	public void widthOutOfRange() {
+	public void lengthOutOfRange() throws FileNotFoundException {
+		double EXPECTED_VALUE = -1;
+		double found_Rate = PostalRateCalculator.getRate(300, 2, 3);
+		assertEquals(EXPECTED_VALUE, found_Rate, 0);
 
 	}
 
 	// Test 22
 	@Test
-	public void lengthOutOfRange() {
+	public void widthOutOfRange() throws FileNotFoundException {
+		double EXPECTED_VALUE = -1;
+		double found_Rate = PostalRateCalculator.getRate(300, 4, 5);
+		assertEquals(EXPECTED_VALUE, found_Rate, 0);
 
 	}
 
 	// Test 23
 	@Test
 	public void invalidType() {
+		double EXPECTED_VALUE = -1;
+		String invalid = "Something Invalid";
+		boolean found_Rate = PostalRateCalculator.validatePostalType("Something Invalid");
+		assertFalse(found_Rate);
 
 	}
 

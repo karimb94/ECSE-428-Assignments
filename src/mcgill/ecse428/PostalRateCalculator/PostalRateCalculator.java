@@ -26,13 +26,15 @@ public class PostalRateCalculator {
 		String fromPostalCode;
 		String toPostalCode;
 		String type;
+		String Input;
 
 		Scanner scan = new Scanner(System.in);
 
 		// Validate user input
 		do {
 			System.out.println("Please Enter a valid weight value");
-			weight = validateDimensionFormat();
+			Input = scan.nextLine();
+			weight = validateDimensionFormat(Input);
 			if (getRate(weight, 0, 1) == -1) {
 				System.out.println("Weight out of range");
 				weight = -1;
@@ -42,7 +44,9 @@ public class PostalRateCalculator {
 
 		do {
 			System.out.println("Please Enter a valid height value");
-			height = validateDimensionFormat();
+			Input = scan.nextLine();
+
+			height = validateDimensionFormat(Input);
 			if (getRate(height, 0, 1) == -1) {
 				System.out.println("Height out of range");
 
@@ -52,7 +56,9 @@ public class PostalRateCalculator {
 
 		do {
 			System.out.println("Please Enter a valid width value");
-			width = validateDimensionFormat();
+			Input = scan.nextLine();
+
+			width = validateDimensionFormat(Input);
 			if (getRate(width, 0, 1) == -1) {
 				System.out.println("Width out of range");
 
@@ -61,7 +67,9 @@ public class PostalRateCalculator {
 		} while (width == -1);
 		do {
 			System.out.println("Please Enter a valid length value");
-			length = validateDimensionFormat();
+			Input = scan.nextLine();
+
+			length = validateDimensionFormat(Input);
 			if (getRate(length, 0, 1) == -1) {
 				System.out.println("Length out of range");
 
@@ -260,21 +268,20 @@ public class PostalRateCalculator {
 	}
 
 	/**
-	 * This method is used to validate that the inputed value by the user is
-	 * infact a number, and not any other symbol.
+	 * This method is used to validate that the inputed value by the user is in
+	 * fact a number, and not any other symbol.
 	 * 
 	 * @param inputMessage
 	 *            message entered to user
 	 * @return the dimension if a valid number, -1 otherwise
 	 */
-	public static double validateDimensionFormat() {
-		Scanner userIn = new Scanner(System.in);
+	public static double validateDimensionFormat(String value) {
 		double dimensions;
 		try {
 			// Try to take in a double
-			dimensions = userIn.nextDouble();
+			dimensions = Double.parseDouble(value);
 			return dimensions;
-		} catch (InputMismatchException e) {
+		} catch (NumberFormatException e) {
 			System.out.println("Please enter a valid number");
 			return -1;
 		}
