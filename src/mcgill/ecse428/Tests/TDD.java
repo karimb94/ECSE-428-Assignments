@@ -6,9 +6,7 @@ package mcgill.ecse428.Tests;
 
 import static org.junit.Assert.*;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
-import java.io.PrintStream;
 
 import org.junit.Test;
 import mcgill.ecse428.PostalRateCalculator.*;
@@ -20,7 +18,8 @@ public class TDD {
 	@Test
 	public void wieghtRate() throws FileNotFoundException {
 		double EXPECTED_RATE = 0.3;
-		double found_Rate = PostalRateCalculator.getRate(0.1, 0, 1);
+		double weight = 0.1;
+		double found_Rate = PostalRateCalculator.getRate(weight, 0, 1);
 		assertEquals(EXPECTED_RATE, found_Rate, errorMargin);
 	}
 
@@ -28,7 +27,8 @@ public class TDD {
 	@Test
 	public void heightRate() throws FileNotFoundException {
 		double EXPECTED_RATE = 0.4;
-		double found_Rate = PostalRateCalculator.getRate(49, 2, 3);
+		double height = 49;
+		double found_Rate = PostalRateCalculator.getRate(height, 2, 3);
 		assertEquals(EXPECTED_RATE, found_Rate, errorMargin);
 	}
 
@@ -36,7 +36,8 @@ public class TDD {
 	@Test
 	public void lengthRate() throws FileNotFoundException {
 		double EXPECTED_RATE = 0.7;
-		double found_Rate = PostalRateCalculator.getRate(99, 4, 5);
+		double length = 99;
+		double found_Rate = PostalRateCalculator.getRate(length, 4, 5);
 		assertEquals(EXPECTED_RATE, found_Rate, errorMargin);
 	}
 
@@ -44,7 +45,8 @@ public class TDD {
 	@Test
 	public void widthRate() throws FileNotFoundException {
 		double EXPECTED_RATE = 0.9;
-		double found_Rate = PostalRateCalculator.getRate(101, 6, 7);
+		double width = 101;
+		double found_Rate = PostalRateCalculator.getRate(width, 6, 7);
 		assertEquals(EXPECTED_RATE, found_Rate, errorMargin);
 	}
 
@@ -52,7 +54,8 @@ public class TDD {
 	@Test
 	public void typeRate() throws FileNotFoundException {
 		double EXPECTED_RATE = 0.5;
-		double found_Rate = PostalRateCalculator.getTypeRate("Xpress");
+		String type = "Xpress";
+		double found_Rate = PostalRateCalculator.getTypeRate(type);
 		assertEquals(EXPECTED_RATE, found_Rate, errorMargin);
 	}
 
@@ -60,7 +63,8 @@ public class TDD {
 	@Test
 	public void toPostalCodeRate() throws FileNotFoundException {
 		double EXPECTED_RATE = 0.7;
-		double found_Rate = PostalRateCalculator.getPostalCodeRate("A1A 1A1");
+		String postal = "A1A 1A1";
+		double found_Rate = PostalRateCalculator.getPostalCodeRate(postal);
 		assertEquals(EXPECTED_RATE, found_Rate, errorMargin);
 	}
 
@@ -265,9 +269,8 @@ public class TDD {
 	// Test 23
 	@Test
 	public void invalidType() {
-		double EXPECTED_VALUE = -1;
 		String invalid = "Something Invalid";
-		boolean found_Rate = PostalRateCalculator.validatePostalType("Something Invalid");
+		boolean found_Rate = PostalRateCalculator.validatePostalType(invalid);
 		assertFalse(found_Rate);
 
 	}

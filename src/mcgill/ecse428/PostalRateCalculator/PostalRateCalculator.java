@@ -152,21 +152,23 @@ public class PostalRateCalculator {
 		// Parse columns in csv file to find limits and corresponding rates
 		ArrayList<String> limits = parseColumn(limitCol);
 		ArrayList<String> rates = parseColumn(rateCol);
+		int i;
 
 		// Validate that input is a positive number
 		if (in < 0) {
 			return -1;
-		}
-		int i;
+		} else {
 
-		// Check if given double is within the limits parsed form the csv file
-		for (i = 1; i < limits.size(); i++) {
-			if (in <= Double.parseDouble(limits.get(i))) {
-				break;
+			// Check if given double is within the limits parsed form the csv
+			// file
+			for (i = 1; i < limits.size(); i++) {
+				if (in <= Double.parseDouble(limits.get(i))) {
+					break;
+				}
+
 			}
-
 		}
-
+		// Out of bound
 		if (i >= limits.size()) {
 			return -1;
 		}
