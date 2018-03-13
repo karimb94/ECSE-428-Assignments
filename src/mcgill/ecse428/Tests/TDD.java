@@ -5,9 +5,7 @@
 package mcgill.ecse428.Tests;
 
 import static org.junit.Assert.*;
-
 import java.io.FileNotFoundException;
-
 import org.junit.Test;
 import mcgill.ecse428.PostalRateCalculator.*;
 
