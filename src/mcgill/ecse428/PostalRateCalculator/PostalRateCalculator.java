@@ -31,21 +31,46 @@ public class PostalRateCalculator {
 
 		// Validate user input
 		do {
-			weight = validateDimensionFormat("Please Enter a valid weight value");
-		} while (weight == -1 && getRate(weight, 0, 1, "Weight") == -1);
+			System.out.println("Please Enter a valid weight value");
+			weight = validateDimensionFormat();
+			if (getRate(weight, 0, 1) == -1) {
+				System.out.println("Weight out of range");
+				weight = -1;
+			}
+
+		} while (weight == -1);
 
 		do {
-			height = validateDimensionFormat("Please Enter a valid height value");
-		} while (height == -1 && getRate(height, 0, 1, "Height") == -1);
+			System.out.println("Please Enter a valid height value");
+			height = validateDimensionFormat();
+			if (getRate(height, 0, 1) == -1) {
+				System.out.println("Height out of range");
+
+				height = -1;
+			}
+		} while (height == -1);
 
 		do {
-			width = validateDimensionFormat("Please Enter a valid width value");
-		} while (width == -1 && getRate(width, 0, 1, "Width") == -1);
+			System.out.println("Please Enter a valid width value");
+			width = validateDimensionFormat();
+			if (getRate(width, 0, 1) == -1) {
+				System.out.println("Width out of range");
+
+				width = -1;
+			}
+		} while (width == -1);
 		do {
-			length = validateDimensionFormat("Please Enter a valid length value");
-		} while (length == -1 && getRate(length, 0, 1, "Length") == -1);
+			System.out.println("Please Enter a valid length value");
+			length = validateDimensionFormat();
+			if (getRate(length, 0, 1) == -1) {
+				System.out.println("Length out of range");
+
+				length = -1;
+			}
+		} while (length == -1);
 
 		do {
+
 			System.out.println("Please enter a valid from Postal code");
 			fromPostalCode = scan.nextLine();
 
@@ -115,10 +140,11 @@ public class PostalRateCalculator {
 	 * @return -1 if input is out of range. rate if input is within range
 	 * @throws FileNotFoundException
 	 */
-	public static double getRate(double in, int limitCol, int rateCol, String check) throws FileNotFoundException {
+	public static double getRate(double in, int limitCol, int rateCol) throws FileNotFoundException {
 		// Parse columns in csv file to find limits and corresponding rates
 		ArrayList<String> limits = parseColumn(limitCol);
 		ArrayList<String> rates = parseColumn(rateCol);
+
 		int i;
 		// Check if given double is within the limits parsed form the csv file
 		for (i = 1; i < limits.size(); i++) {
@@ -129,7 +155,6 @@ public class PostalRateCalculator {
 		}
 
 		if (i >= limits.size()) {
-			System.out.println(check + " out of range");
 			return -1;
 		}
 
@@ -220,21 +245,17 @@ public class PostalRateCalculator {
 	public static double getFullRate(double width, double height, double length, double weight, String type, String to)
 			throws FileNotFoundException {
 		// Calculate the individual rates
-		double r1 = getRate(weight, 0, 1, "Weight");
-		double r2 = getRate(height, 2, 3, "Height");
-		double r3 = getRate(length, 4, 5, "Length");
-		double r4 = getRate(width, 6, 7, "Width");
+		double r1 = getRate(weight, 0, 1);
+		double r2 = getRate(height, 2, 3);
+		double r3 = getRate(length, 4, 5);
+		double r4 = getRate(width, 6, 7);
 		double r5 = getTypeRate(type);
 		double r6 = getPostalCodeRate(to);
 		double total;
 
 		// If all rates are good, return sum. Else return -1
-		if (r1 != -1 && r2 != -1 && r3 != -1 && r4 != -1 && r5 != -1 && r6 != -1) {
-			total = r1 + r2 + r3 + r4 + r5 + r6;
-			return total;
-		} else {
-			return -1;
-		}
+		total = r1 + r2 + r3 + r4 + r5 + r6;
+		return total;
 
 	}
 
@@ -246,11 +267,10 @@ public class PostalRateCalculator {
 	 *            message entered to user
 	 * @return the dimension if a valid number, -1 otherwise
 	 */
-	public static double validateDimensionFormat(String inputMessage) {
+	public static double validateDimensionFormat() {
 		Scanner userIn = new Scanner(System.in);
 		double dimensions;
 		try {
-			System.out.println(inputMessage);
 			// Try to take in a double
 			dimensions = userIn.nextDouble();
 			return dimensions;

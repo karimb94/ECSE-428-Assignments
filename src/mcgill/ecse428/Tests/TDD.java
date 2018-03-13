@@ -15,116 +15,227 @@ import mcgill.ecse428.PostalRateCalculator.*;
 
 public class TDD {
 
-	// Objects
-	private PostalRateCalculator tester = new PostalRateCalculator();
-
 	// Test 1
 	@Test
-	public void wieghtRate1() {
+	public void wieghtRate() throws FileNotFoundException {
+		double EXPECTED_RATE = 0.3;
+		double found_Rate = PostalRateCalculator.getRate(0.1, 0, 1);
+		assertEquals(EXPECTED_RATE, found_Rate, 0);
 	}
 
 	// Test 2
 	@Test
-	public void wieghtRate2() {
+	public void heightRate() throws FileNotFoundException {
+		double EXPECTED_RATE = 0.4;
+		double found_Rate = PostalRateCalculator.getRate(49, 2, 3);
+		assertEquals(EXPECTED_RATE, found_Rate, 0);
 	}
 
 	// Test 3
 	@Test
-	public void hieghtRate1() {
+	public void lengthRate() throws FileNotFoundException {
+		double EXPECTED_RATE = 0.7;
+		double found_Rate = PostalRateCalculator.getRate(99, 4, 5);
+		assertEquals(EXPECTED_RATE, found_Rate, 0);
 	}
 
 	// Test 4
 	@Test
-	public void hieghtRate2() {
+	public void widthRate() throws FileNotFoundException {
+		double EXPECTED_RATE = 0.9;
+		double found_Rate = PostalRateCalculator.getRate(99, 6, 7);
+		assertEquals(EXPECTED_RATE, found_Rate, 0);
 	}
 
 	// Test 5
 	@Test
-	public void lengthRate1() {
+	public void typeRate() throws FileNotFoundException {
+		double EXPECTED_RATE = 0.5;
+		double found_Rate = PostalRateCalculator.getTypeRate("Xpress");
+		assertEquals(EXPECTED_RATE, found_Rate, 0);
 	}
 
 	// Test 6
 	@Test
-	public void lengthRate2() {
+	public void toPostalCodeRate() throws FileNotFoundException {
+		double EXPECTED_RATE = 0.7;
+		double found_Rate = PostalRateCalculator.getPostalCodeRate("A1A 1A1");
+		assertEquals(EXPECTED_RATE, found_Rate, 0);
 	}
 
 	// Test 7
 	@Test
-	public void widthRate1() {
+	public void fullRateWeight1() throws FileNotFoundException {
+		double EXPECTED_RATE = 0.7;
+		double width = 50;
+		double height = 50;
+		double length = 100;
+		double weight = 0.1;
+		String type = "Regular";
+		String to = "H3Z 1J9";
+		double found_Rate = PostalRateCalculator.getFullRate(width, height, length, weight, type, to);
+		assertEquals(EXPECTED_RATE, found_Rate, 0);
 	}
 
 	// Test 8
 	@Test
-	public void widthRate2() {
+	public void fullRateWeight2() throws FileNotFoundException {
+		double EXPECTED_RATE = 0.7;
+		double width = 50;
+		double height = 50;
+		double length = 100;
+		double weight = 0.26;
+		String type = "Regular";
+		String to = "H3Z 1J9";
+		double found_Rate = PostalRateCalculator.getFullRate(width, height, length, weight, type, to);
+		assertEquals(EXPECTED_RATE, found_Rate, 0);
 	}
 
 	// Test 9
 	@Test
-	public void typeRate1() {
+	public void fullRateHeight1() throws FileNotFoundException {
+		double EXPECTED_RATE = 0.7;
+		double width = 50;
+		double height = 0;
+		double length = 100;
+		double weight = 150;
+		String type = "Regular";
+		String to = "H3Z 1J9";
+		double found_Rate = PostalRateCalculator.getFullRate(width, height, length, weight, type, to);
+		assertEquals(EXPECTED_RATE, found_Rate, 0);
 	}
 
 	// Test 10
 	@Test
-	public void typeRate2() {
+	public void fullRateHeight2() throws FileNotFoundException {
+		double EXPECTED_RATE = 0.7;
+		double width = 50;
+		double height = 140;
+		double length = 100;
+		double weight = 150;
+		String type = "Regular";
+		String to = "H3Z 1J9";
+		double found_Rate = PostalRateCalculator.getFullRate(width, height, length, weight, type, to);
+		assertEquals(EXPECTED_RATE, found_Rate, 0);
 	}
 
 	// Test 11
 	@Test
-	public void toPostalCodeRate1() {
+	public void fullRateLength1() throws FileNotFoundException {
+		double EXPECTED_RATE = 0.7;
+		double width = 50;
+		double height = 50;
+		double length = 49;
+		double weight = 150;
+		String type = "Regular";
+		String to = "H3Z 1J9";
+		double found_Rate = PostalRateCalculator.getFullRate(width, height, length, weight, type, to);
+		assertEquals(EXPECTED_RATE, found_Rate, 0);
 	}
 
 	// Test 12
 	@Test
-	public void toPostalCodeRate2() {
+	public void fullRateLength2() throws FileNotFoundException {
+		double EXPECTED_RATE = 0.7;
+		double width = 50;
+		double height = 50;
+		double length = 130;
+		double weight = 150;
+		String type = "Regular";
+		String to = "H3Z 1J9";
+		double found_Rate = PostalRateCalculator.getFullRate(width, height, length, weight, type, to);
+		assertEquals(EXPECTED_RATE, found_Rate, 0);
 	}
 
 	// Test 13
 	@Test
-	public void fromPostalCodeRate1() {
+	public void fullRateWidth1() throws FileNotFoundException {
+		double EXPECTED_RATE = 0.7;
+		double width = 25;
+		double height = 50;
+		double length = 100;
+		double weight = 150;
+		String type = "Regular";
+		String to = "H3Z 1J9";
+		double found_Rate = PostalRateCalculator.getFullRate(width, height, length, weight, type, to);
+		assertEquals(EXPECTED_RATE, found_Rate, 0);
 	}
 
 	// Test 14
 	@Test
-	public void fromPostalCodeRate2() {
+	public void fullRateWidth2() throws FileNotFoundException {
+		double EXPECTED_RATE = 0.7;
+		double width = 75;
+		double height = 50;
+		double length = 100;
+		double weight = 150;
+		String type = "Regular";
+		String to = "H3Z 1J9";
+		double found_Rate = PostalRateCalculator.getFullRate(width, height, length, weight, type, to);
+		assertEquals(EXPECTED_RATE, found_Rate, 0);
 	}
 
 	// Test 15
 	@Test
-	public void invalideWeight() {
+	public void fullRateType1() throws FileNotFoundException {
+		double EXPECTED_RATE = 0.7;
+		double width = 50;
+		double height = 50;
+		double length = 100;
+		double weight = 150;
+		String type = "Xpress";
+		String to = "H3Z 1J9";
+		double found_Rate = PostalRateCalculator.getFullRate(width, height, length, weight, type, to);
+		assertEquals(EXPECTED_RATE, found_Rate, 0);
 	}
 
 	// Test 16
 	@Test
-	public void weightOutOfRange() {
+	public void fullRateToPostalCode1() throws FileNotFoundException {
+		double EXPECTED_RATE = 0.7;
+		double width = 50;
+		double height = 50;
+		double length = 100;
+		double weight = 150;
+		String type = "Regular";
+		String to = "J3Q 1R9";
+		double found_Rate = PostalRateCalculator.getFullRate(width, height, length, weight, type, to);
+		assertEquals(EXPECTED_RATE, found_Rate, 0);
 	}
 
 	// Test 17
 	@Test
-	public void invalideHeight() {
-
+	public void fullRateToPostalCode2() throws FileNotFoundException {
+		double EXPECTED_RATE = 0.7;
+		double width = 50;
+		double height = 50;
+		double length = 100;
+		double weight = 150;
+		String type = "Regular";
+		String to = "A5N 1W9";
+		double found_Rate = PostalRateCalculator.getFullRate(width, height, length, weight, type, to);
+		assertEquals(EXPECTED_RATE, found_Rate, 0);
 	}
 
 	// Test 18
+	@Test
+	public void inValidDimensions() {
+	}
+
+	// Test 19
+	@Test
+	public void weightOutOfRange() {
+	}
+
+	// Test 20
 	@Test
 	public void heightOutOfRange() {
 
 	}
 
-	// Test 19
-	@Test
-	public void invalidWidthRange() {
-
-	}
-
-	// Test 20
-	@Test
-	public void widthOutOfRange() {
-
-	}
-
 	// Test 21
 	@Test
-	public void invalidLength() {
+	public void widthOutOfRange() {
 
 	}
 
@@ -145,7 +256,7 @@ public class TDD {
 	public void invalidFromPostalCode() {
 		String inValidFromCode = "alskdjl";
 		String validToCode = "h2q4j2";
-		boolean result = tester.validatePostalCode(inValidFromCode, validToCode);
+		boolean result = PostalRateCalculator.validatePostalCode(inValidFromCode, validToCode);
 
 		assertFalse(result);
 	}
@@ -156,7 +267,7 @@ public class TDD {
 
 		String inValidToCode = "h2q4j2";
 		String validFromCode = "alskdjl";
-		boolean result = tester.validatePostalCode(validFromCode, inValidToCode);
+		boolean result = PostalRateCalculator.validatePostalCode(validFromCode, inValidToCode);
 
 		assertFalse(result);
 	}
