@@ -161,7 +161,7 @@ public class PostalRateCalculator {
 
 		// Check if given double is within the limits parsed form the csv file
 		for (i = 1; i < limits.size(); i++) {
-			if (in < Double.parseDouble(limits.get(i))) {
+			if (in <= Double.parseDouble(limits.get(i))) {
 				break;
 			}
 
