@@ -153,10 +153,15 @@ public class PostalRateCalculator {
 		ArrayList<String> limits = parseColumn(limitCol);
 		ArrayList<String> rates = parseColumn(rateCol);
 
+		// Validate that input is a positive number
+		if (in < 0) {
+			return -1;
+		}
 		int i;
+
 		// Check if given double is within the limits parsed form the csv file
 		for (i = 1; i < limits.size(); i++) {
-			if (in <= Double.parseDouble(limits.get(i))) {
+			if (in < Double.parseDouble(limits.get(i))) {
 				break;
 			}
 
