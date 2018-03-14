@@ -5,11 +5,14 @@
 package mcgill.ecse428.Tests;
 
 import static org.junit.Assert.*;
+
 import java.io.FileNotFoundException;
+
 import org.junit.Test;
 import mcgill.ecse428.PostalRateCalculator.*;
 
 public class TDD {
+
 	double errorMargin = 0.000001;
 
 	// Test 1
@@ -212,11 +215,5 @@ public class TDD {
 		double EXPECTED_VALUE = -1;
 		double returned = PostalRateCalculator.validateDimensionFormat(invalid);
 		assertEquals(EXPECTED_VALUE, returned, errorMargin);
-	}
-	//Test 20
-	@Test
-	public void mainTest() throws FileNotFoundException{
-		String[] temp = null;
-		PostalRateCalculator.main(temp);
 	}
 }

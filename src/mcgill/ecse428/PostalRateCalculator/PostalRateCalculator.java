@@ -36,17 +36,14 @@ public class PostalRateCalculator {
 				System.out.println("Weight out of range");
 				weight = -1;
 			}
-
 		} while (weight == -1);
 
 		do {
 			System.out.println("Please Enter a valid height value");
 			Input = scan.nextLine();
-
 			height = validateDimensionFormat(Input);
 			if (getRate(height, 2, 3) == -1) {
 				System.out.println("Height out of range");
-
 				height = -1;
 			}
 		} while (height == -1);
@@ -54,11 +51,9 @@ public class PostalRateCalculator {
 		do {
 			System.out.println("Please Enter a valid width value");
 			Input = scan.nextLine();
-
 			width = validateDimensionFormat(Input);
 			if (getRate(width, 4, 5) == -1) {
 				System.out.println("Width out of range");
-
 				width = -1;
 			}
 		} while (width == -1);
@@ -69,21 +64,17 @@ public class PostalRateCalculator {
 			length = validateDimensionFormat(Input);
 			if (getRate(length, 6, 7) == -1) {
 				System.out.println("Length out of range");
-
 				length = -1;
 			}
 		} while (length == -1);
 
 		do {
-
 			System.out.println("Please enter a valid from Postal code");
 			fromPostalCode = scan.nextLine();
 
 			System.out.println("Please enter a valid to Postal code");
 			toPostalCode = scan.nextLine();
-
 		} while (!validatePostalCode(fromPostalCode, toPostalCode));
-
 		do {
 			System.out.println("Please select a postage type: Regular Or Xpress or Priority");
 			type = scan.nextLine();
@@ -177,7 +168,6 @@ public class PostalRateCalculator {
 		int i = 1;
 		// Compare type to list of acceptable types to find respective rate
 		for (i = 1; i < limits.size(); i++) {
-			System.out.println(limits.get(i).charAt(0));
 			if (type.charAt(0) == limits.get(i).charAt(0)) {
 				break;
 			}
