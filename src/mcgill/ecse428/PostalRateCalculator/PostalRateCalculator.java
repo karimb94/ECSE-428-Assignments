@@ -15,83 +15,83 @@ public class PostalRateCalculator {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		// Variables used to store user input
-				double weight;
-				double height;
-				double width;
-				double length;
-				double rate = 0;
-				String fromPostalCode;
-				String toPostalCode;
-				String type;
-				String Input;
+		double weight;
+		double height;
+		double width;
+		double length;
+		double rate = 0;
+		String fromPostalCode;
+		String toPostalCode;
+		String type;
+		String Input;
 
-				Scanner scan = new Scanner(System.in);
+		Scanner scan = new Scanner(System.in);
 
-				// Validate user input
-				do {
-					System.out.println("Please Enter a valid weight value");
-					Input = scan.nextLine();
-					weight = validateDimensionFormat(Input);
-					if (getRate(weight, 0, 1) == -1) {
-						System.out.println("Weight out of range");
-						weight = -1;
-					}
+		// Validate user input
+		do {
+			System.out.println("Please Enter a valid weight value");
+			Input = scan.nextLine();
+			weight = validateDimensionFormat(Input);
+			if (getRate(weight, 0, 1) == -1) {
+				System.out.println("Weight out of range");
+				weight = -1;
+			}
 
-				} while (weight == -1);
+		} while (weight == -1);
 
-				do {
-					System.out.println("Please Enter a valid height value");
-					Input = scan.nextLine();
+		do {
+			System.out.println("Please Enter a valid height value");
+			Input = scan.nextLine();
 
-					height = validateDimensionFormat(Input);
-					if (getRate(height, 0, 1) == -1) {
-						System.out.println("Height out of range");
+			height = validateDimensionFormat(Input);
+			if (getRate(height, 2, 3) == -1) {
+				System.out.println("Height out of range");
 
-						height = -1;
-					}
-				} while (height == -1);
+				height = -1;
+			}
+		} while (height == -1);
 
-				do {
-					System.out.println("Please Enter a valid width value");
-					Input = scan.nextLine();
+		do {
+			System.out.println("Please Enter a valid width value");
+			Input = scan.nextLine();
 
-					width = validateDimensionFormat(Input);
-					if (getRate(width, 0, 1) == -1) {
-						System.out.println("Width out of range");
+			width = validateDimensionFormat(Input);
+			if (getRate(width, 4, 5) == -1) {
+				System.out.println("Width out of range");
 
-						width = -1;
-					}
-				} while (width == -1);
-				do {
-					System.out.println("Please Enter a valid length value");
-					Input = scan.nextLine();
+				width = -1;
+			}
+		} while (width == -1);
+		do {
+			System.out.println("Please Enter a valid length value");
+			Input = scan.nextLine();
 
-					length = validateDimensionFormat(Input);
-					if (getRate(length, 0, 1) == -1) {
-						System.out.println("Length out of range");
+			length = validateDimensionFormat(Input);
+			if (getRate(length, 6, 7) == -1) {
+				System.out.println("Length out of range");
 
-						length = -1;
-					}
-				} while (length == -1);
+				length = -1;
+			}
+		} while (length == -1);
 
-				do {
+		do {
 
-					System.out.println("Please enter a valid from Postal code");
-					fromPostalCode = scan.nextLine();
+			System.out.println("Please enter a valid from Postal code");
+			fromPostalCode = scan.nextLine();
 
-					System.out.println("Please enter a valid to Postal code");
-					toPostalCode = scan.nextLine();
+			System.out.println("Please enter a valid to Postal code");
+			toPostalCode = scan.nextLine();
 
-				} while (!validatePostalCode(fromPostalCode, toPostalCode));
+		} while (!validatePostalCode(fromPostalCode, toPostalCode));
 
-				do {
-					System.out.println("Please select a postage type: Regular Or Xpress or Priority");
-					type = scan.nextLine();
-				} while (!validatePostalType(type));
+		do {
+			System.out.println("Please select a postage type: Regular Or Xpress or Priority");
+			type = scan.nextLine();
+		} while (!validatePostalType(type));
 
-				rate = getFullRate(width, height, length, weight, type, toPostalCode);
+		rate = getFullRate(width, height, length, weight, type, toPostalCode);
 
-				System.out.println("The postage rate will be: " + rate);
+		System.out.println("The postage rate will be: " + rate);
 
 	}
 

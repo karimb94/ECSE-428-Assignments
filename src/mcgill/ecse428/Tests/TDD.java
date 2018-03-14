@@ -192,9 +192,7 @@ public class TDD {
 	public void invalidFromPostalCode() {
 		String inValidFromCode = "alskdjl";
 		String validToCode = "h2q4j2";
-		boolean result =
-		PostalRateCalculator.validatePostalCode(inValidFromCode,
-				validToCode);
+		boolean result = PostalRateCalculator.validatePostalCode(inValidFromCode, validToCode);
 		assertFalse(result);
 	}
 
@@ -203,9 +201,7 @@ public class TDD {
 	public void invalidToPostalCode() {
 		String inValidToCode = "adq4j2";
 		String validFromCode = "h3z1j9";
-		boolean result =
-		PostalRateCalculator.validatePostalCode(validFromCode,
-				inValidToCode);
+		boolean result = PostalRateCalculator.validatePostalCode(validFromCode, inValidToCode);
 		assertFalse(result);
 	}
 
@@ -216,5 +212,11 @@ public class TDD {
 		double EXPECTED_VALUE = -1;
 		double returned = PostalRateCalculator.validateDimensionFormat(invalid);
 		assertEquals(EXPECTED_VALUE, returned, errorMargin);
+	}
+	//Test 20
+	@Test
+	public void mainTest() throws FileNotFoundException{
+		String[] temp = null;
+		PostalRateCalculator.main(temp);
 	}
 }
