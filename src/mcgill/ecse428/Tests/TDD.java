@@ -192,16 +192,20 @@ public class TDD {
 	public void invalidFromPostalCode() {
 		String inValidFromCode = "alskdjl";
 		String validToCode = "h2q4j2";
-		boolean result = PostalRateCalculator.validatePostalCode(inValidFromCode, validToCode);
+		boolean result =
+		PostalRateCalculator.validatePostalCode(inValidFromCode,
+				validToCode);
 		assertFalse(result);
 	}
 
 	// Test 18
 	@Test
 	public void invalidToPostalCode() {
-		String inValidToCode = "h2q4j2";
-		String validFromCode = "alskdjl";
-		boolean result = PostalRateCalculator.validatePostalCode(validFromCode, inValidToCode);
+		String inValidToCode = "adq4j2";
+		String validFromCode = "h3z1j9";
+		boolean result =
+		PostalRateCalculator.validatePostalCode(validFromCode,
+				inValidToCode);
 		assertFalse(result);
 	}
 
